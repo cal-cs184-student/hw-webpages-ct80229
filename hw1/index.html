@@ -38,16 +38,16 @@
 	<body>
 		<div class="container">
 		<h1>CS184/284A Spring 2025 Homework 1 Write-Up</h1>
-		<div style="text-align: center;">Names: Colin Tran</div>
+		<div style="text-align: center;">Name: Colin Tran</div>
 
 		<br>
 
 		<h2>Overview</h2>
 		<p>
-			In this homework, I implemented a rasterizer from scratch, starting with basic triangle rasterization and building up to supersampling, transforms, barycentric color interpolation, texture mapping with pixel sampling, and mipmap-based level sampling. Along the way I also implemented an incremental edge function optimization for faster rasterization.
+			In this homework, I implemented a rasterizer. I started with basic triangle rasterization, then implemented supersampling,transforms, barycentric color interpolation, texture mapping with pixel sampling, and mipmap-based level sampling. I also added an optional incremental edge function optimization to speed up rasterization.
 		</p>
 		<p>
-			The most interesting thing I learned was how much antialiasing quality can be improved just by sampling more carefully — whether by supersampling sub-pixels, blending neighboring texels bilinearly, or choosing the right mip level. Each technique targets a different source of aliasing and they compound nicely when combined.
+			The most interesting thing I learned was how each type of sample affected antialiasing. Prior to this project, I didn't have a great understanding of how these different methods tackled various graphical problems. By examing the outputs of supersampling sub-pixels, blending neighboring texels, and selecting different mip level, I gained a better understanding of how each technique targets a different source of aliasing. Furthermore, I was also able to see that they're not mutually exclusive--these techniques can work together to form a cohesive final image.
 		</p>
 
 		<h2>Task 1: Drawing Single-Color Triangles</h2>
