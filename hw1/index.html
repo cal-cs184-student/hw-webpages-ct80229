@@ -86,10 +86,30 @@
 			<li>The innermost loop increments <code>e0 += sub_sedge01x</code> (1/&radic;rate of a pixel right).</li>
 		</ul>
 		<p><strong>Timing Comparison:</strong></p>
-		<ul>
-			<li>test4 — optimized: 0.500333 ms, naive: 0.543667 ms</li>
-			<li>test6 — optimized: 0.543667 ms, naive: 1.15304 ms</li>
-		</ul>
+		<table style="border-collapse: collapse; margin: 0 auto;">
+			<thead>
+				<tr>
+					<th style="border: 1px solid #ccc; padding: 8px 16px;">Test</th>
+					<th style="border: 1px solid #ccc; padding: 8px 16px;">Optimized (ms)</th>
+					<th style="border: 1px solid #ccc; padding: 8px 16px;">Naive (ms)</th>
+					<th style="border: 1px solid #ccc; padding: 8px 16px;">Speedup</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td style="border: 1px solid #ccc; padding: 8px 16px;">test4</td>
+					<td style="border: 1px solid #ccc; padding: 8px 16px;">0.500333</td>
+					<td style="border: 1px solid #ccc; padding: 8px 16px;">0.543667</td>
+					<td style="border: 1px solid #ccc; padding: 8px 16px;">1.09&times;</td>
+				</tr>
+				<tr>
+					<td style="border: 1px solid #ccc; padding: 8px 16px;">test6</td>
+					<td style="border: 1px solid #ccc; padding: 8px 16px;">0.543667</td>
+					<td style="border: 1px solid #ccc; padding: 8px 16px;">1.15304</td>
+					<td style="border: 1px solid #ccc; padding: 8px 16px;">2.12&times;</td>
+				</tr>
+			</tbody>
+		</table>
 
 		<h2>Task 2: Antialiasing by Supersampling</h2>
 
@@ -110,7 +130,7 @@
 
 		<h3>Show png screenshots of basic/test4.svg with the default viewing parameters and sample rates 1, 4, and 16 to compare them side-by-side. Position the pixel inspector over an area that showcases the effect dramatically; for example, a very skinny triangle corner. Explain why these results are observed.</h3>
 		<p>
-			As sampling rate increases, triangle edges become smoother gradients and intermediate colors (between white and red) begin to appear at a higher rate. Pixels that were missed with low sampling rates show up as faint colors instead of disappearing. The results are most apparent at the triangle tips, since that's where the triangle becomes thinner than a pixel. At <code>sample_rate = 1</code>, the tip disappears. At <code>sample_rate = 9</code> or <code>16</code>, the sub-samples inside of the tip are detected and therefore contribute a partial color.
+			As sampling rate increases, triangle edges become smoother gradients and intermediate colors (between white and red) begin to appear at a higher rate. Pixels that were missed with low sampling rates show up as faint colors instead of disappearing. The results are most apparent at the triangle tips, since that's where the triangle becomes thinner than a pixel. At <code>sample_rate = 1</code>, the tip disappears. At <code>sample_rate = 16</code>, the sub-samples inside of the tip are detected and therefore contribute a partial color.
 		</p>
 		<div style="display: flex; flex-direction: column; align-items: center;">
 			<table style="width: 100%; text-align: center; border-collapse: collapse;">
@@ -151,6 +171,10 @@
 		<p>
 			In graphics, barycentric coordinates let us blend colors. In the SVG I created, vertex a (top) is red, vertex b (bottom left) is green, and vertex c (bottom right) is blue. A pixel near the top would have an alpha value near 1, and beta and gamma values near 0 — this pixel would be mostly red. A pixel near the center would have roughly equal alpha, beta, and gamma values, producing a blend of red, blue, and green.
 		</p>
+		<figure>
+			<img src="images/barycentric_demo.png" alt="Barycentric color triangle: red top, green bottom-left, blue bottom-right" style="width:50%"/>
+			<figcaption>svg/basic/barycentric_demo.svg — single triangle with red (top), green (bottom-left), and blue (bottom-right) vertices, blended with barycentric interpolation.</figcaption>
+		</figure>
 		<h3>Show a png screenshot of svg/basic/test7.svg with default viewing parameters and sample rate 1. If you make any additional images with color gradients, include them.</h3>
 		<figure>
 			<img src="images/screenshot_2-19_14-4-44.png" alt="Color wheel / test7" style="width:60%"/>
@@ -182,18 +206,6 @@
 		<p>Bilinear sampling creates smoother gradients across texel boundaries than the nearest sampling method.</p>
 
 		<h3>Check out the svg files in the svg/texmap/ directory. Use the pixel inspector to find a good example of where bilinear sampling clearly defeats nearest sampling. Show and compare four png screenshots using nearest sampling at 1 sample per pixel, nearest sampling at 16 samples per pixel, bilinear sampling at 1 sample per pixel, and bilinear sampling at 16 samples per pixel.</h3>
-
-		<h3>Comment on the relative differences. Discuss when there will be a large difference between the two methods and why.</h3>
-		<p>
-			Using nearest sampling at 1 sample per pixel, we have the worst quality. There are obvious jaggies and each pixel has 1 texel.
-			Compared to bilinear sampling at 1 sample per pixel, we can see an immediate difference. There are smoother transitions between pixels since they’re blending between neighboring texels.
-			Using nearest sampling at 16 samples per pixel, we can see that jaggies are largely reduced. However, the texture issues (bad blending across pixels) are still present.
-			Finally, with bilinear sampling at 16 samples per pixel, we get the smoothest result. The jaggies are blended together and the pixel textures are also blended.
-		</p>
-		<p>
-			There will be a large difference between the two methods when the texture we’re dealing with is very detailed and is magnified. When this happens, texels may map to multiple pixels. Here, nearest sampling would give us a pixelated output, whereas
-			bilinear would give us smooth transitions.
-		</p>
 		<div style="display: flex; flex-direction: column; align-items: center;">
 			<table style="width: 100%; text-align: center; border-collapse: collapse;">
 			  <tr>
@@ -218,6 +230,18 @@
 			  </tr>
 			</table>
 		</div>
+
+		<h3>Comment on the relative differences. Discuss when there will be a large difference between the two methods and why.</h3>
+		<p>
+			Using nearest sampling at 1 sample per pixel, we have the worst quality. There are obvious jaggies and each pixel has 1 texel.
+			Compared to bilinear sampling at 1 sample per pixel, we can see an immediate difference. There are smoother transitions between pixels since they’re blending between neighboring texels.
+			Using nearest sampling at 16 samples per pixel, we can see that jaggies are largely reduced. However, the texture issues (bad blending across pixels) are still present.
+			Finally, with bilinear sampling at 16 samples per pixel, we get the smoothest result. The jaggies are blended together and the pixel textures are also blended.
+		</p>
+		<p>
+			There will be a large difference between the two methods when the texture we’re dealing with is very detailed and is magnified. When this happens, texels may map to multiple pixels. Here, nearest sampling would give us a pixelated output, whereas
+			bilinear would give us smooth transitions.
+		</p>
 
 		<h2>Task 6: "Level Sampling" with Mipmaps for Texture Mapping</h2>
 
