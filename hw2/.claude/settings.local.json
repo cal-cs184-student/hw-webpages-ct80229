@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(open -a \"Google Chrome\" \"https://cal-cs184-student.github.io/hw-webpages-ct80229/hw2/\")"
+    ]
+  }
+}
