@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(python3:*)"
+      "Bash(python3:*)",
+      "Bash(\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --headless --disable-gpu --print-to-pdf=\"/Users/colintran/Documents/cs184/hw-webpages-ct80229/hw1/index.pdf\" \"file:///Users/colintran/Documents/cs184/hw-webpages-ct80229/hw1/index.html\")"
     ]
   }
 }
