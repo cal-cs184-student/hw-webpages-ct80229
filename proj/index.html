@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Saran Wrap Simulation</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #fff;
+        color: #1a1a1a;
+        margin: 0;
+        padding: 0;
+        line-height: 1.7;
+      }
+
+      .container {
+        margin: 0 auto;
+        padding: 60px 20%;
+      }
+
+      h1 {
+        text-align: center;
+        font-size: 2.4rem;
+        font-weight: 700;
+        margin-bottom: 0.25em;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        border-bottom: 2px solid #e0e0e0;
+        padding-bottom: 0.3em;
+        margin-top: 2.5em;
+      }
+
+      h3 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-top: 1.5em;
+        margin-bottom: 0.4em;
+      }
+
+      .subtitle {
+        text-align: center;
+        color: #888;
+        font-size: 0.95rem;
+        margin-bottom: 2.5em;
+      }
+
+      .team-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4em 2em;
+      }
+
+      .team-list li {
+        font-weight: 600;
+      }
+
+      ul, ol {
+        padding-left: 1.5em;
+      }
+
+      ul li, ol li {
+        margin-bottom: 0.3em;
+      }
+
+      .week-block {
+        background: #f8f8f8;
+        border-left: 4px solid #aaa;
+        border-radius: 4px;
+        padding: 1em 1.4em;
+        margin-bottom: 1.4em;
+      }
+
+      .week-block h3 {
+        margin-top: 0;
+        color: #1a1a1a;
+      }
+
+      .week-goal {
+        font-style: italic;
+        color: #555;
+        margin-bottom: 0.6em;
+      }
+
+      .deliverables-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.2em;
+        margin-top: 1em;
+      }
+
+      .deliverable-card {
+        background: #f8f8f8;
+        border-radius: 6px;
+        padding: 1em 1.2em;
+      }
+
+      .deliverable-card h3 {
+        margin-top: 0;
+        font-size: 1rem;
+        color: #1a1a1a;
+      }
+
+      .questions-list {
+        list-style: disc;
+        padding-left: 1.5em;
+      }
+
+      .questions-list li {
+        margin-bottom: 0.5em;
+      }
+
+      .references-list {
+        list-style: none;
+        padding: 0;
+      }
+
+      .references-list li {
+        margin-bottom: 0.6em;
+      }
+
+      .references-list a {
+        word-break: break-all;
+      }
+
+      @media (max-width: 900px) {
+        .container {
+          padding: 40px 5%;
+        }
+        .deliverables-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Saran Wrap Simulation</h1>
+      <p class="subtitle">CS 184 Final Project Proposal &mdash; Spring 2026</p>
+
+      <!-- ===== Title, Summary, Team ===== -->
+      <h2>Title, Summary, and Team Members</h2>
+
+      <h3>Summary</h3>
+      <p>
+        Our project is an interactive simulation of virtual saran wrap that combines
+        GPU-accelerated cloth physics with thin-film optics. Users can interact with the saran
+        wrap by clicking and dragging it to stretch the material. A custom shader will render
+        iridescent rainbow patterns across the stretched and thinned-out areas.
+      </p>
+
+      <h3>Team Members</h3>
+      <ul class="team-list">
+        <li>Johnson Huang</li>
+        <li>Calvin Lee</li>
+        <li>Fathima Shaikh</li>
+        <li>Colin Tran</li>
+      </ul>
+
+      <!-- ===== Problem Description ===== -->
+      <h2>Problem Description</h2>
+      <p>
+        Simulating realistic thin plastic materials like Saran Wrap poses a unique challenge at
+        the intersection of physics and rendering, as they behave very differently from
+        traditional cloth due to their strong adhesion, extreme thinness, and nonlinear
+        deformation when stretched. This is especially the case over objects or wet surfaces.
+        Existing cloth simulation models do not accurately capture these properties&mdash;for
+        example, particularly the way the material clings tightly, stretches unevenly, and
+        exhibits changing optical effects as its thickness varies.
+      </p>
+      <p>
+        This problem is important because it extends beyond standard cloth simulation to model
+        more complex, real-world materials, with applications in high-fidelity rendering and
+        interactive graphics systems. To address this, we propose extending a GPU-accelerated
+        cloth simulation framework to incorporate adhesion forces, high damping, and variable
+        thickness based on strain, and using this thickness to drive a custom shader that
+        renders thin-film interference. This can then enable both realistic physical interaction
+        and visually accurate iridescence in an interactive system.
+      </p>
+
+      <!-- ===== Goals and Deliverables ===== -->
+      <h2>Goals and Deliverables</h2>
+
+      <div class="deliverables-grid">
+        <div class="deliverable-card">
+          <h3>What We Plan to Deliver</h3>
+          <ol>
+            <li>Thin-sheet simulation</li>
+            <li>Gravity-driven motion</li>
+            <li>
+              Self-collision and collisions with rigid objects
+              <ul>
+                <li>Wrinkling and folding behavior</li>
+                <li>Sticking behavior</li>
+              </ul>
+            </li>
+            <li>Transparent material with reflection and refraction</li>
+            <li>Approximate thin-film iridescence shader</li>
+            <li>
+              Interactivity
+              <ul>
+                <li>Mouse-based click and drag constraints</li>
+                <li>Real-time response</li>
+              </ul>
+            </li>
+            <li>FPS measurements for different scene complexities for performance analysis</li>
+            <li>Visual comparison with real-world behavior</li>
+          </ol>
+        </div>
+
+        <div class="deliverable-card">
+          <h3>What We Hope to Deliver</h3>
+          <ol>
+            <li>
+              Physically-based iridescence
+              <ul>
+                <li>Wavelength-dependent interference model</li>
+                <li>Changes with film thickness (and therefore stretching)</li>
+              </ul>
+            </li>
+            <li>Thickness-dependent appearance</li>
+            <li>
+              Surface interaction variants
+              <ul>
+                <li>Dry vs. wet surfaces</li>
+                <li>Electrostatic effects</li>
+              </ul>
+            </li>
+          </ol>
+        </div>
+      </div>
+
+      <h3>Questions We Would Like to Answer</h3>
+      <ul class="questions-list">
+        <li>How are thin films simulated differently compared to standard cloth?</li>
+        <li>
+          How can thin-film interference be approximated efficiently for real-time rendering?
+        </li>
+        <li>How does deformation affect interference and perceived color?</li>
+        <li>What level of physics is necessary to achieve visually accurate saran wrap?</li>
+      </ul>
+
+      <!-- ===== Schedule ===== -->
+      <h2>Schedule</h2>
+
+      <div class="week-block">
+        <h3>Week 1</h3>
+        <p class="week-goal">Goal: Set up scaffolding and do initial research</p>
+        <ul>
+          <li>Set up WebGL/WebGPU and rest of scaffolding</li>
+          <li>
+            Implement a basic cloth simulation with realistic physics
+            <ul>
+              <li>Define the particle/grid data structure for the cloth mesh</li>
+              <li>Write the initial compute shader</li>
+              <li>Implement basic structural and shear spring constraints</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div class="week-block">
+        <h3>Week 2</h3>
+        <p class="week-goal">
+          Goal: Implement collision detection and begin implementing realistic saran wrap
+          physics
+        </p>
+        <ul>
+          <li>
+            Adjust cloth physics to mimic saran wrap
+            <ul>
+              <li>Adjust the spring constants</li>
+              <li>Implement heavy damping/friction</li>
+            </ul>
+          </li>
+          <li>
+            Add 3D bowl object
+            <ul>
+              <li>Import bowl geometry</li>
+              <li>Set up the transformation matrix to place it correctly</li>
+            </ul>
+          </li>
+          <li>Implement collision detection between the mesh and bowl</li>
+        </ul>
+      </div>
+
+      <div class="week-block">
+        <h3>Week 3</h3>
+        <p class="week-goal">
+          Goal: Finish implementing saran wrap physics and create custom shader
+        </p>
+        <ul>
+          <li>
+            Write the math in the compute shader to calculate the localized stretch/strain
+            ratio of the mesh faces
+            <ul>
+              <li>
+                Write a function to map the strain ratio to a physical thickness range in
+                nanometers based on conservation of mass
+              </li>
+              <li>
+                Pass this calculated thickness array from the compute shader into the
+                vertex/fragment pipeline
+              </li>
+            </ul>
+          </li>
+          <li>
+            Implement the thin-film interference BRDF in the fragment shader to render
+            iridescence
+            <ul>
+              <li>Write the phase-shift equations to calculate optical interference</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div class="week-block">
+        <h3>Week 4</h3>
+        <p class="week-goal">
+          Goal: Implement interactivity and complete remaining shader work
+        </p>
+        <ul>
+          <li>
+            Implement real-time user interaction (mouse-drag raycasting) so the user can
+            actively stretch the plastic
+            <ul>
+              <li>Set up mouse event listeners</li>
+              <li>
+                Apply a localized positional constraint/force in the compute shader to let
+                the user pull the mesh
+              </li>
+            </ul>
+          </li>
+          <li>Optimize the compute shader to ensure stability during interaction</li>
+        </ul>
+      </div>
+
+      <!-- ===== Resources ===== -->
+      <h2>Resources</h2>
+      <p>
+        For our project, we will mainly be using references for 3 key features: adhesive
+        cloth dynamics using &ldquo;Wet cloth animation with vertex based adhesion force
+        model&rdquo; by Min Ju Park and Hae Won Byun from Korea University; rendering of wet
+        materials using &ldquo;Rendering of Wet Materials&rdquo; by Henrik Wann Jense, Justin
+        Legakis, and Julie Dorsey from MIT; and thin-film interference from &ldquo;The
+        Mathematics of Thin-Film Interference&rdquo; by Alan Zucconi. The foundation of our
+        software will be from previous homeworks, such as hw4, cloth simulation. We will also
+        be using Blender for environment modeling and OpenGL for interactive real-time previews
+        of our simulation.
+      </p>
+      <p>
+        Most of the development will be done on personal computers, including Apple MacBooks
+        and Windows-based laptops. We will also be utilizing LLM models such as Anthropic
+        Claude and Google Gemini to assist in setting up our codebases.
+      </p>
+
+      <h3>References</h3>
+      <ul class="references-list">
+        <li>
+          Min Ju Park and Hae Won Byun &mdash; <em>Wet cloth animation with vertex based adhesion force model</em><br />
+          <a
+            href="https://www.researchgate.net/publication/331620331_Wet_cloth_animation_with_vertex_based_adhesion_force_model"
+            target="_blank"
+            >https://www.researchgate.net/publication/331620331_Wet_cloth_animation_with_vertex_based_adhesion_force_model</a
+          >
+        </li>
+        <li>
+          Henrik Wann Jensen, Justin Legakis, and Julie Dorsey &mdash; <em>Rendering of Wet Materials</em><br />
+          <a
+            href="http://graphics.ucsd.edu/~henrik/papers/rendering_wet_materials/"
+            target="_blank"
+            >http://graphics.ucsd.edu/~henrik/papers/rendering_wet_materials/</a
+          >
+        </li>
+        <li>
+          Alan Zucconi &mdash; <em>The Mathematics of Thin-Film Interference</em><br />
+          <a
+            href="https://www.alanzucconi.com/2017/07/25/the-mathematics-of-thin-film-interference/"
+            target="_blank"
+            >https://www.alanzucconi.com/2017/07/25/the-mathematics-of-thin-film-interference/</a
+          >
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
